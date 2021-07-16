@@ -3,6 +3,7 @@ package com.example.demo.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -50,19 +51,26 @@ public class CarRepository {
             return carList;
             
             }
-        public List<Car> getBrand(String car_brand)
-    	{
-    		String sql = "select * from car where brand=?";
-    		List<Car> car =template.query(sql, new Object[]{car_brand},new BeanPropertyRowMapper<>(Car.class));
-    		return car;
-    	}
-        
-        
-    	public String[] getTotalBrand() {
-    		String sql = "select distinct(brand) from car";
-    		List<String> lst = template.queryForList(sql, String.class);
-    		String[] brandAll = lst.toArray(new String[lst.size()]);
-    	
-    		return brandAll;
-    	}
+        public List<Car> getsCarsByBrand(String brand)
+        {
+
+        	
+        String sql="select * from car where brand=?";	
+        	List<Car> car=
+        			template.query(sql,new Object[]{brand},new BeanPropertyRowMapper<>(Car.class));
+        	
+        	return car;
+        	
+        	
+        }
+
+        public String[] getBrand()
+        {
+        String sql="select distinct(brand) from car";
+        List<String> list = template.queryForList(sql,String.class);
+        String[] brands=list.toArray(new String[list.size()]);
+
+        return brands;
+
+        }
 }

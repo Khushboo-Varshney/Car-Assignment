@@ -13,6 +13,6 @@
 <a href ="cars">Add Car</a><br>
 <a href="cars/all">View Cars</a><br>
 <a href="cars/viewall">Cars for sale</a><br>
-<a href="cars/searchbrand">Search Car by brand</a><br>
+<a href="cars/showByBrand">Search Car by brand</a><br>
 </body>
 </html>

@@ -56,24 +56,37 @@ public class CarController {
 		return "carforsale";
 	}
 	
-	@ModelAttribute("groups")
+	/*@ModelAttribute("brands")
 	public String[] brands() {
 		
 		return new String[] {"Maruti","Benz","Audi","Tata","Mahindra","Lamburgini"};
-	}
+	}*/
 	
-	@RequestMapping(value="/cars/searchbrand", method = RequestMethod.GET)
-	public String initBrand(Model model) {
-		model.addAttribute("command",cars);
-		return "searchbrand";
+
+	@RequestMapping(value = "/cars/brand", method = RequestMethod.POST)
+	public String findCarsByBrand(@ModelAttribute("command") @RequestParam("brand")String brand,Model model) {
+
+	List<Car> list=repo.getsCarsByBrand(brand);	
+	
+    model.addAttribute("list", list);
+		return "carsByBrand";
+
 	}
-	@RequestMapping(value="/cars/brandbased",method=RequestMethod.POST)	
-	public String findCarsByBrand(@ModelAttribute("command") @RequestParam("brand")String brand, Model model)
-	{
-		List<Car> list = repo.getBrand(brand);
-		
-		model.addAttribute("list",list);
-		return "brandbased";
-	}
-	     
+
+ 
+	@RequestMapping(value = "/cars/showByBrand", method = RequestMethod.GET)
+   	public String initFormBrand(Model model) {
+
+   	model.addAttribute("command",cars);
+   		
+   		return "selectBrand";
+
+   	}
+   	@ModelAttribute("brands")
+	public String[] brand() {
+   		String[] brands=repo.getBrand();
+   	
+		//return new String[] { "Maruti","TATA","Mahindra" };
+  return brands;
+   	}
 }
